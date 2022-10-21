@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Existing User</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
 <div class="head_container">
@@ -11,42 +11,47 @@
 </div>
 <h2>Update Existing User</h2>
 <div class="container">
-    <form th:action="@{/users/update}" th:object="${user}" method="post" >
-        <table class="updateUserTable">
+    <form th:action="@{/users/update/{id}(id=${user.id})}" th:object="${user}" method="post" >
+        <table class="newUserTable">
             <tr>
                 <th>ID:</th>
-                <th><input name="id" id="id" th: readonly/></th>
+                <th><input class="userInput" type="text" th:placeholder="${user.id}"
+                           th:readonly></th>
             </tr>
             <tr>
                 <th>First name:</th>
-                <th><input class="userInput" type="text" th:field="*{firstName}"/></th>
+                <th><input class="userInput" type="text" th:placeholder="${user.firstName}"
+                           th:field="*{firstName}"></th>
             </tr>
             <tr>
                 <th>Last name:</th>
-                <th><input class="userInput" type="text" th:field="*{lastName}"/></th>
+                <th><input class="userInput" type="text" th:placeholder="${user.lastName}"
+                           th:field="*{lastName}"></th>
             </tr>
             <tr>
                 <th>E-mail:</th>
-                <th><input class="userInput" type="text" th:field="*{email}"/></th>
+                <th><input class="userInput" type="text" th:placeholder="${user.email}"
+                           th:field="*{email}"></th>
             </tr>
             <tr>
                 <th>Old Password:</th>
-                <th><input class="userInput" type="text" th:field="*{password}"/></th>
+                <th><input class="userInput" type="password" th:placeholder="${user.password}"></th>
             </tr>
             <tr>
                 <th>New Password:</th>
-                <th><input class="userInput" type="text" th:field="*{password}"/></th>
+                <th><input class="userInput" type="password"
+                           th:field="*{password}"/></th>
             </tr>
             <tr>
                 <th>Role:</th>
-                <th><input class="userInput" type="text" th:field="*{password}"/></th>
+                <th><input class="userInput" type="text" th:placeholder="${user.role.name}"
+                           th:field="*{role}"></th>
             </tr>
         </table>
-        <div style="text-align:left;">
-            <span style="padding: 0px 60px;"></span>
-            <input class="defButton update" type="submit" value="Update"/>
+        <div style="text-align:right;">
+            <input class="defButton register" type="submit" value="Update"/>
             <input class="defButton clear" type="button" value="Clear"
-                   onclick="document.querySelectorAll('input[type=text], textarea').forEach(el=>el.value = '');"/>
+                   onclick="document.querySelectorAll('input[type=password], input[type=text]').forEach(el=>el.value = '');"/>
         </div>
     </form>
     <div

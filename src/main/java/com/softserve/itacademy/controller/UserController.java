@@ -50,9 +50,16 @@ public class UserController {
         return "update-user";
     }
 
-    @GetMapping("/{id}/update")
-    public String update(@PathVariable(name = "id") Integer id,
-    @Valid @RequestBody User user) {
+    @GetMapping("/update/{id}")
+    public String update(Model model, @PathVariable(name = "id") Integer id) {
+        User userDB = userService.readById(id);
+        model.addAttribute("user", userDB);
+        return "update-user";
+    }
+
+    @PostMapping("/update/{id}")
+    public String update1(@ModelAttribute(name = "user") User user,
+                          @PathVariable(name = "id") Integer id) {
         User userDB = userService.readById(id);
         userDB.setFirstName(user.getFirstName());
         userDB.setLastName(user.getLastName());
@@ -62,8 +69,6 @@ public class UserController {
         userService.update(userDB);
         return "users-list";
     }
-
-
 
     @GetMapping("/all")
     public String getAll(Model model) {
