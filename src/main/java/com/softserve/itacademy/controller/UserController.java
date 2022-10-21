@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -26,8 +29,15 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String addUser(@ModelAttribute(name = "user") User user) {
-        userService.create(user);
+    public String addUser(Model model, @ModelAttribute(name = "user") User user) {
+        try {
+            userService.create(user);
+        } catch (ConstraintViolationException e) {
+            String err = e.getConstraintViolations().stream()
+                    .map(m -> m.getMessage()).collect(Collectors.joining());
+            model.addAttribute("err", err);
+            return "create-user";
+        }
         return "redirect:/"; //todo redirect to todo-lists
     }
 

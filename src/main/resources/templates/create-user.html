@@ -35,6 +35,9 @@
                 <input class="defButton clear" type="reset" value="Clear"/>
             </div>
         </form>
+        <div
+                th:if="${err}" th:utext="${err}" style="color:red;font-style:italic;">
+        </div>
     </div>
 </body>
 </html>
