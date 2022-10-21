@@ -1,6 +1,7 @@
 package com.softserve.itacademy.controller;
 
 import com.softserve.itacademy.model.User;
+import com.softserve.itacademy.service.RoleService;
 import com.softserve.itacademy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +18,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/create")
     public String create(@ModelAttribute(name = "user") User user) {
@@ -53,7 +56,11 @@ public class UserController {
     @GetMapping("/update/{id}")
     public String update(Model model, @PathVariable(name = "id") Integer id) {
         User userDB = userService.readById(id);
+        List<String> roles = roleService.getAll().stream()
+                .map(r -> r.getName())
+                .collect(Collectors.toList());
         model.addAttribute("user", userDB);
+        model.addAttribute("role", roles);
         return "update-user";
     }
 
