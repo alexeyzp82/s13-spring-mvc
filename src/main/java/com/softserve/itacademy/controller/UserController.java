@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -48,18 +50,25 @@ public class UserController {
         return "update-user";
     }
 
-//
-//    @GetMapping("/{id}/update")
-//    public String update(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
-//
-//
-//
-//    @GetMapping("/all")
-//    public String getAll(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
+    @GetMapping("/{id}/update")
+    public String update(@PathVariable(name = "id") Integer id,
+    @Valid @RequestBody User user) {
+        User userDB = userService.readById(id);
+        userDB.setFirstName(user.getFirstName());
+        userDB.setLastName(user.getLastName());
+        userDB.setEmail(user.getEmail());
+        userDB.setPassword(user.getPassword());
+        userDB.setRole(user.getRole());
+        userService.update(userDB);
+        return "users-list";
+    }
+
+
+
+    @GetMapping("/all")
+    public String getAll(Model model) {
+        List<User> users = userService.getAll();
+        model.addAttribute("users", users);
+        return "users-list";
+    }
 }
