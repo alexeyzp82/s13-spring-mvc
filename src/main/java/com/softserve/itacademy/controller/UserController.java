@@ -18,9 +18,8 @@ public class UserController {
         return "create-user";
     }
 
-    //    @GetMapping("/{id}/delete")
-    @GetMapping("/delete/{userId}")
-    public String deleteUser(@PathVariable(name = "userId") Integer id) {
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable(name = "id") Integer id) {
         userService.delete(id);
         return "redirect:/";
     }
@@ -30,9 +29,6 @@ public class UserController {
         userService.create(user);
         return "redirect:/"; //todo redirect to todo-lists
     }
-
-    //add needed fields
-
 
 //
 //    @PostMapping("/create")
