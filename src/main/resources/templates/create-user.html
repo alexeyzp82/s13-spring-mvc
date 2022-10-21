@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Create New User</title>
     <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
+</script>
 </head>
 <body>
     <div class="head_container">
@@ -32,7 +33,8 @@
             </table>
             <div style="text-align:right;">
                 <input class="defButton register" type="submit" value="Register"/>
-                <input class="defButton clear" type="reset" value="Clear"/>
+                <input class="defButton clear" type="button" value="Clear"
+                       onclick="document.querySelectorAll('input[type=text], textarea').forEach(el=>el.value = '');"/>
             </div>
         </form>
         <div
