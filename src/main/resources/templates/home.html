@@ -3,8 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Home page</title>
+    <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
-
+<div class="head_container">
+    <th:block th:insert="~{header :: header}"></th:block>
+</div>
+    <h2>List of Users</h2>
+<div class="buttonBlock">
+    <a th:href="@{/users/create}">
+        <button type="submit">Create new User</button>
+    </a>
+</div>
+<div class="container">
+    <table class="homeTable">
+        <tr>
+            <th>No.</th>
+            <th>Id</th>
+            <th>Full name</th>
+            <th>E-mail</th>
+            <th colspan="2">Operations</th>
+        </tr>
+        <tr class="homeTableTr" th:each="user,state :${users}">
+            <td th:text="${state.count}"/>
+            <td th:text="${user.id}"/>
+            <td>
+                <a th:text="${user.firstName} + ' ' + ${user.lastName}" style="text-decoration:none"
+                   th:href="@{/allToDoList}"></a>
+            </td>
+            <td th:text="${user.email}"/>
+            <td>
+                <a style="text-decoration:none" th:href="@{/users/read/{id}(id=${user.id})}">Edit</a>
+            </td>
+            <td>
+                <a style="text-decoration:none" th:href="@{/users/delete/{id}(id=${user.id})}">Remove</a>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
