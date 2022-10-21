@@ -3,27 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Home page</title>
-    <link rel="stylesheet" type="text/css" media="all"
-          href="src/main/resources/templates/static/css/main.css" th:href="@{/css/main.css}" />
+    <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
-<button class="button">Button</button>
-<div style="display: flex; align-items: center; height: 40px; width: 40%; background:#e1dfdf; padding-left: 10px;">
+<div class="head_container">
     <th:block th:insert="~{header :: header}"></th:block>
 </div>
-<div style="padding-left: 10px;">
     <h2>List of Users</h2>
-</div>
-<div style="width: 40%; text-align: right;">
+<div class="buttonBlock">
     <a th:href="@{/users/create}">
-        <button style="background-color: #5bc1df; border-radius: 5px 5px 5px 5px; border: none; color: white;
-                        padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block;
-                        font-size: 20px; margin: 4px 2px; cursor: pointer;"
-                type="submit">Create new User</button>
+        <button type="submit">Create new User</button>
     </a>
 </div>
-<div style="width: 40%; padding-top:20px; padding-left: 10px; ">
-    <table style="width: 100%; border-collapse: collapse; border: 2px solid white; text-align: left;">
+<div class="container">
+    <table class="homeTable">
         <tr>
             <th>No.</th>
             <th>Id</th>
@@ -31,8 +24,7 @@
             <th>E-mail</th>
             <th colspan="2">Operations</th>
         </tr>
-        <tr style="padding: 3px;border: 1px solid grey; height:40px"
-            th:each="user,state :${users}">
+        <tr class="homeTableTr" th:each="user,state :${users}">
             <td th:text="${state.count}"/>
             <td th:text="${user.id}"/>
             <td>
