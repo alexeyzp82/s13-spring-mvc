@@ -45,16 +45,13 @@
             <tr>
                 <th>Role:</th>
                 <th>
-                    <select class="userInput" th:field="*{role}">
-<!--                        <option th:each="role1:${roles}"-->
-<!--                                th:text="${role1.name}"-->
-<!--                                th:value="${role1.name}">-->
-<!--                        </option>-->
+                    <select class="userInput" th:field="*{role.name}">
+                        <option th:each="role:${roles}"
+                                th:text="${role.name}"
+                                th:value="${role.name}">
+                        </option>
                     </select>
                 </th>
-
-<!--                <th><input class="userInput" type="text" th:placeholder="${user.role.name}"-->
-<!--                           th:field="*{role}"></th>-->
             </tr>
         </table>
         <div style="text-align:right;">

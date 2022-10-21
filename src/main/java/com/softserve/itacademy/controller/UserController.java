@@ -1,10 +1,12 @@
 package com.softserve.itacademy.controller;
 
+import com.softserve.itacademy.model.Role;
 import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.service.RoleService;
 import com.softserve.itacademy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,9 +58,6 @@ public class UserController {
     @GetMapping("/update/{id}")
     public String update(Model model, @PathVariable(name = "id") Integer id) {
         User userDB = userService.readById(id);
-        List<String> roles = roleService.getAll().stream()
-                .map(r -> r.getName())
-                .collect(Collectors.toList());
         model.addAttribute("user", userDB);
         model.addAttribute("roles", roleService.getAll());
         return "update-user";
@@ -68,13 +67,23 @@ public class UserController {
     public String update(Model model,
                          @ModelAttribute(name = "user") User user,
                           @PathVariable(name = "id") Integer id) {
-        User userDB = userService.readById(id);
-        userDB.setFirstName(user.getFirstName());
-        userDB.setLastName(user.getLastName());
-        userDB.setEmail(user.getEmail());
-        userDB.setPassword(user.getPassword());
-        userDB.setRole(user.getRole());
-        userService.update(userDB);
+        Role role = roleService.getAll().stream()
+                .filter(r -> r.getName().equals(user.getRole().getName()))
+                .findFirst().get();
+        try {
+            User userDB = userService.readById(id);
+            userDB.setFirstName(user.getFirstName());
+            userDB.setLastName(user.getLastName());
+            userDB.setEmail(user.getEmail());
+            userDB.setPassword(user.getPassword());
+            userDB.setRole(role);
+            userService.update(userDB);
+        } catch (TransactionSystemException e) {
+            System.out.println();
+            String err =  e.getRootCause().toString();
+            model.addAttribute("err", err);
+            return "update-user";
+        }
         model.addAttribute("users", userService.getAll());
         return "home";
     }
