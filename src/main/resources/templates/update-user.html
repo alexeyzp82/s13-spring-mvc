@@ -35,7 +35,7 @@
             </tr>
             <tr>
                 <th>Old Password:</th>
-                <th><input class="userInput" type="password" th:placeholder="${user.password}"></th>
+                <th><input class="userInput" type="text" th:placeholder="${user.password}"></th>
             </tr>
             <tr>
                 <th>New Password:</th>
@@ -44,14 +44,24 @@
             </tr>
             <tr>
                 <th>Role:</th>
-                <th><input class="userInput" type="text" th:placeholder="${user.role.name}"
-                           th:field="*{role}"></th>
+                <th>
+                    <select class="userInput" th:field="*{role}">
+<!--                        <option th:each="role1:${roles}"-->
+<!--                                th:text="${role1.name}"-->
+<!--                                th:value="${role1.name}">-->
+<!--                        </option>-->
+                    </select>
+                </th>
+
+<!--                <th><input class="userInput" type="text" th:placeholder="${user.role.name}"-->
+<!--                           th:field="*{role}"></th>-->
             </tr>
         </table>
         <div style="text-align:right;">
             <input class="defButton register" type="submit" value="Update"/>
             <input class="defButton clear" type="button" value="Clear"
-                   onclick="document.querySelectorAll('input[type=password], input[type=text]').forEach(el=>el.value = '');"/>
+                   onclick="document.querySelectorAll('input[type=password], input[type=text]')
+                            .forEach(el=> el.type === 'password' ? el.value='' : el.value = ' ');"/>
         </div>
     </form>
     <div

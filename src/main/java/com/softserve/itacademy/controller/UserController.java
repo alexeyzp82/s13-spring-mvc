@@ -60,12 +60,13 @@ public class UserController {
                 .map(r -> r.getName())
                 .collect(Collectors.toList());
         model.addAttribute("user", userDB);
-        model.addAttribute("role", roles);
+        model.addAttribute("roles", roleService.getAll());
         return "update-user";
     }
 
     @PostMapping("/update/{id}")
-    public String update1(@ModelAttribute(name = "user") User user,
+    public String update(Model model,
+                         @ModelAttribute(name = "user") User user,
                           @PathVariable(name = "id") Integer id) {
         User userDB = userService.readById(id);
         userDB.setFirstName(user.getFirstName());
@@ -74,7 +75,8 @@ public class UserController {
         userDB.setPassword(user.getPassword());
         userDB.setRole(user.getRole());
         userService.update(userDB);
-        return "users-list";
+        model.addAttribute("users", userService.getAll());
+        return "home";
     }
 
     @GetMapping("/all")
