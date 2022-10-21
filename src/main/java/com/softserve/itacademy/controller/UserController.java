@@ -4,6 +4,7 @@ import com.softserve.itacademy.model.User;
 import com.softserve.itacademy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -14,7 +15,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/create")
-    public String create(@ModelAttribute(name="user") User user) {
+    public String create(@ModelAttribute(name = "user") User user) {
         return "create-user";
     }
 
@@ -24,24 +25,19 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostMapping("/addUser")
-    public String addUser(@ModelAttribute(name="user") User user) {
+    @PostMapping("/create")
+    public String addUser(@ModelAttribute(name = "user") User user) {
         userService.create(user);
         return "redirect:/"; //todo redirect to todo-lists
     }
 
-//
-//    @PostMapping("/create")
-//    public String create(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
-//
-//    @GetMapping("/{id}/read")
-//    public String read(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
+    @GetMapping("/read/{id}")
+    public String read(Model model, @PathVariable(name = "id") Integer id) {
+        User user = userService.readById(id);
+        model.addAttribute("user", user);
+        return "update-user";
+    }
+
 //
 //    @GetMapping("/{id}/update")
 //    public String update(//add needed parameters) {

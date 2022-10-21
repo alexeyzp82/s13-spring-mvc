@@ -33,7 +33,7 @@
             </td>
             <td th:text="${user.email}"/>
             <td>
-                <a style="text-decoration:none" th:href="@{/edit/{userId}(id=${user.id})}">Edit</a>
+                <a style="text-decoration:none" th:href="@{/users/read/{id}(id=${user.id})}">Edit</a>
             </td>
             <td>
                 <a style="text-decoration:none" th:href="@{/users/delete/{id}(id=${user.id})}">Remove</a>
