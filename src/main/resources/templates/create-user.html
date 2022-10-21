@@ -5,6 +5,51 @@
     <title>Create New User</title>
 </head>
 <body>
-
+<div style="display: flex; align-items: center; height: 40px; width: 40%; background:#e1dfdf; padding-left: 10px;">
+    <th:block th:insert="~{header :: header}"></th:block>
+</div>
+<div style="padding-left: 10px;">
+    <h2>Create New User</h2>
+    <div style="width: 40%; padding-left: 10px;">
+        <form th:action="@{/addUser}" th:object="${user}" method="post" >
+            <table style="width:100%;text-align:right;">
+                <tr>
+                    <th>First name: </th>
+                    <th><input style="width:95%;height:30px;border-radius: 5px 5px 5px 5px;border:1px solid #c0c0c0;
+                                                     font-size:16px;"
+                               type="text" th:field="*{firstName}"/></th>
+                </tr>
+                <tr>
+                    <th style="width:100px">Last name: </th>
+                    <th><input style="width:95%;height:30px;border-radius: 5px 5px 5px 5px;border:1px solid #c0c0c0;
+                                                     font-size:16px;"
+                               type="text" th:field="*{lastName}"/></th>
+                </tr>
+                <tr>
+                    <th>E-mail: </th>
+                    <th><input style="width:95%;height:30px;border-radius: 5px 5px 5px 5px;border:1px solid #c0c0c0;
+                                                     font-size:16px;"
+                               type="text" th:field="*{email}"/></th>
+                </tr>
+                <tr>
+                    <th>Password: </th>
+                    <th><input style="width:95%;height:30px;border-radius: 5px 5px 5px 5px;border:1px solid #c0c0c0;
+                                                     font-size:16px;"
+                               type="text" th:field="*{password}"/></th>
+                </tr>
+            </table>
+            <div style="text-align:right;">
+                <input style="background-color: #5bc1df; border-radius: 5px 5px 5px 5px; border: none; color: white;
+                        padding: 10px 22px; text-align: center; text-decoration: none; display: inline-block;
+                        font-size: 20px; margin: 4px 2px; cursor: pointer;"
+                       type="submit" value="Register"/>
+                <input style="background-color:#e1dfdf; border-radius: 5px 5px 5px 5px; border: none; color: black;
+                        padding: 10px 32px; text-align: center; text-decoration: none; display: inline-block;
+                        font-size: 20px; margin: 4px 2px; cursor: pointer;"
+                       type="reset" value="Clear"/>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
