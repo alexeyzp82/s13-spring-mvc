@@ -3,8 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Home page</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="src/main/resources/templates/static/css/main.css" th:href="@{/css/main.css}" />
 </head>
 <body>
-
+<button class="button">Button</button>
+<div style="display: flex; align-items: center; height: 40px; width: 40%; background:#e1dfdf; padding-left: 10px;">
+    <th:block th:insert="~{header :: header}"></th:block>
+</div>
+<div style="padding-left: 10px;">
+    <h2>List of Users</h2>
+</div>
+<div style="width: 40%; text-align: right;">
+    <a th:href="@{/create-user}">
+        <button style="background-color: #5bc1df; border-radius: 5px 5px 5px 5px; border: none; color: white;
+                        padding: 15px 32px; text-align: center; text-decoration: none; display: inline-block;
+                        font-size: 20px; margin: 4px 2px; cursor: pointer;"
+                type="submit">Create new User</button>
+    </a>
+</div>
+<div style="width: 40%; padding-top:20px; padding-left: 10px; ">
+    <table style="width: 100%; border-collapse: collapse; border: 2px solid white; text-align: left;">
+        <tr>
+            <th>No.</th>
+            <th>Id</th>
+            <th>Full name</th>
+            <th>E-mail</th>
+            <th colspan="2">Operations</th>
+        </tr>
+        <tr style="padding: 3px;border: 1px solid grey; height:40px"
+            th:each="user,state :${users}">
+            <td th:text="${state.count}"/>
+            <td th:text="${user.id}"/>
+            <td>
+                <a th:text="${user.firstName} + ' ' + ${user.lastName}" style="text-decoration:none"
+                   th:href="@{/allToDoList}"></a>
+            </td>
+            <td th:text="${user.email}"/>
+            <td>
+                <a style="text-decoration:none" th:href="@{/edit/{userId}(id=${user.id})}">Edit</a>
+            </td>
+            <td>
+                <a style="text-decoration:none" th:href="@{/delete/{userId}(id=${user.id})}">Remove</a>
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
