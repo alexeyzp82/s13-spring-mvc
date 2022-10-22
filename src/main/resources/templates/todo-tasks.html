@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>All Tasks of ToDo List</title>
+    <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
+    <div class="head_container">
+        <th:block th:insert="~{header :: header}"></th:block>
+    </div>
+    <h2>All Tasks of ToDo List</h2>
 
 </body>
 </html>

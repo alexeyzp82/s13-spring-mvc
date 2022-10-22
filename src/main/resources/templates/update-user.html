@@ -15,8 +15,7 @@
         <table class="newUserTable">
             <tr>
                 <th>ID:</th>
-                <th><input class="userInput" type="text" th:placeholder="${user.id}"
-                           th:readonly></th>
+                <th><input class="userInput" type="text" th:placeholder="${user.id}" readonly></th>
             </tr>
             <tr>
                 <th>First name:</th>
@@ -30,12 +29,12 @@
             </tr>
             <tr>
                 <th>E-mail:</th>
-                <th><input class="userInput" type="text" th:placeholder="${user.email}"
-                           th:field="*{email}"></th>
+                <th><input style="background-color:#F0E68C" class="userInput" type="text" th:placeholder="${user.email}"
+                           th:field="*{email}" readonly></th>
             </tr>
             <tr>
                 <th>Old Password:</th>
-                <th><input class="userInput" type="text" th:placeholder="${user.password}"></th>
+                <th><input style="background-color:#F0E68C" class="userInput" type="text" th:placeholder="${user.password}" readonly></th>
             </tr>
             <tr>
                 <th>New Password:</th>
