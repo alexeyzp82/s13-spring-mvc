@@ -9,7 +9,40 @@
     <div class="head_container">
         <th:block th:insert="~{header :: header}"></th:block>
     </div>
-    <h2>All Tasks of ToDo List</h2>
-
+    <h2 style="display:inline-block"> All Tasks From </h2>
+    <h2 style="display:inline-block" th:text="${toDo.title}"></h2>
+    <div class="buttonBlock">
+        <a th:href="@{/tasks/create}">
+            <button type="submit">Create Task</button>
+        </a>
+    </div>
+    <div class="container">
+        <h2>Tasks: </h2>
+        <table class="homeTable">
+            <tr>
+                <th>No.</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Priority</th>
+                <th>State</th>
+                <th colspan="2">Operations</th>
+            </tr>
+            <tr class="homeTableTr" th:each="task,state :${tasks}">
+                <td th:text="${state.count}"/>
+                <td th:text="${task.id}"/>
+                <td th:text="${task.name}"/>
+                <td th:text="${task.priority}"/>
+                <td th:text="${task.state.name}"/>
+                <td>
+                    <a style="text-decoration:none"
+                       th:href="@{'/tasks/' + ${task.id} + '/update/todos/' +  ${toDo.id}}">Edit</a>
+                </td>
+                <td>
+                    <a style="text-decoration:none"
+                       th:href="@{'/tasks/' + ${task.id} + '/delete/todos/' +  ${toDo.id}}">Remove</a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

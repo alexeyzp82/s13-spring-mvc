@@ -31,7 +31,7 @@
                 <td th:text="${todo.id}"/>
                 <td>
                     <a th:text="${todo.title}" style="text-decoration:none"
-                       th:href="@{/allToDoList}"></a>
+                       th:href="@{/tasks/create/todos/{id}(id=${todo.id})}"></a>
                 </td>
                 <td th:text="${todo.createdAt}"/>
                 <td th:text="${user.firstName} + ' ' + ${user.lastName}"/>
