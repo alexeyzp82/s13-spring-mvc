@@ -20,6 +20,7 @@ public class ToDoController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private ToDoService toDoService;
 
@@ -85,9 +86,12 @@ public class ToDoController {
 
     @GetMapping("/{todo_id}/delete/users/{owner_id}")
     public String delete(Model model,
-                         @PathVariable(name = "id") Integer todoId,
-                         @PathVariable(name = "id") Integer ownerId) {
+                         @PathVariable(name = "todo_id") Integer todoId,
+                         @PathVariable(name = "owner_id") Integer ownerId) {
         toDoService.delete(todoId);
+        List<ToDo> todoList = toDoService.getByUserId(ownerId);
+        model.addAttribute("user", userService.readById(ownerId));
+        model.addAttribute("todos", todoList);
         return "todos-user";
     }
 
@@ -97,54 +101,7 @@ public class ToDoController {
         model.addAttribute("todos", allUserToDos);
         return "todos-user";
     }
-//
-//    @PostMapping("/create/users/{owner_id}")
-//    public String create(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
-//
-//    @GetMapping("/{id}/tasks")
-//    public String read(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
-//
-//    @GetMapping("/{todo_id}/update/users/{owner_id}")
-//    public String update(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
-//
-//    @PostMapping("/{todo_id}/update/users/{owner_id}")
-//    public String update(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
-//
-//    @GetMapping("/{todo_id}/delete/users/{owner_id}")
-//    public String delete(//add needed parameters) {
-//                         // ToDo
-//        return " ";
-//    }
-//
-//    @GetMapping("/all/users/{user_id}")
-//    public String getAll(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
-//
-//    @GetMapping("/{id}/add")
-//    public String addCollaborator(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
-//
-//    @GetMapping("/{id}/remove")
-//    public String removeCollaborator(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
+
     @GetMapping("/{id}/add")
     public String addCollaborator(@PathVariable(name = "id") Integer id,
                                   @ModelAttribute(name = "user") User user) {

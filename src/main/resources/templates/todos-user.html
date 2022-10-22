@@ -39,7 +39,8 @@
                     <a style="text-decoration:none" th:href="@{/users/update/{id}(id=${user.id})}">Edit</a>
                 </td>
                 <td>
-                    <a style="text-decoration:none" th:href="@{/users/delete/{id}(id=${user.id})}">Remove</a>
+                    <a style="text-decoration:none"
+                       th:href="@{'/todos/' + ${todo.id} + '/delete/users/' + ${user.id}}">Remove</a>
                 </td>
             </tr>
         </table>
