@@ -9,7 +9,8 @@
     <div class="head_container">
         <th:block th:insert="~{header :: header}"></th:block>
     </div>
-    <h2> All ToDo Lists of <p th:text="${user.firstName} + ' ' + ${user.lastName}" style="text-decoration:none"/></h2>
+    <h2 style="display:inline-block"> All ToDo Lists of</h2>
+    <h2 style="display:inline-block" th:text="${user.firstName} + ' ' + ${user.lastName}"></h2>
     <div class="buttonBlock">
         <a th:href="@{/users/create}">
             <button type="submit">Create new ToDo List</button>
