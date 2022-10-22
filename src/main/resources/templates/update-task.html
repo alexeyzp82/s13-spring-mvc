@@ -3,8 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Update Task</title>
+    <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
-a
+<div class="head_container">
+    <th:block th:insert="~{header :: header}"></th:block>
+</div>
+<h2>Update Task</h2>
+<div class="container">
+    <form th:action="@{'/tasks/' + ${task.id} + '/update/todos/' +  ${toDo.id}}"
+          th:object="${task}" method="post">
+        <table class="newUserTable">
+            <tr>
+                <th>ID:</th>
+                <th><input class="userInput" type="text" th:placeholder="${task.id}" readonly></th>
+            </tr>
+            <tr>
+                <th>Name:</th>
+                <th><input class="userInput" type="text" th:placeholder="${task.name}"
+                           th:field="*{name}"></th>
+            </tr>
+            <tr>
+                <th>Priority:</th>
+                <th>
+                    <select class="userInput" th:field="*{priority}">
+                        <option th:each="priority:${priorities}"
+                                th:text="${priority}"
+                                th:value="${priority}">
+                        </option>
+                    </select>
+                </th>
+            </tr>
+            <tr>
+                <th>Status:</th>
+                <th><select class="userInput" th:field="*{state.name}">
+                    <option th:each="state:${states}"
+                            th:text="${state.name}"
+                            th:value="${state.name}">
+                    </option>
+                </select>
+                </th>
+            </tr>
+        </table>
+        <div style="text-align:right;">
+            <input class="defButton register" type="submit" value="Update"/>
+            <input class="defButton clear" type="button" value="Clear"
+                   onclick="document.querySelectorAll('input[type=password], input[type=text]')
+                            .forEach(el=> el.type === 'password' ? el.value='' : el.value = ' ');"/>
+        </div>
+        <div style="text-align:right;">
+            <a style="text-decoration:none" th:href="@{/tasks/create/todos/{id}(id=${toDo.id})}">Go to Task List</a>
+        </div>
+    </form>
+    <div
+            th:if="${err}" th:utext="${err}" style="color:red;font-style:italic;">
+    </div>
+</div>
 </body>
 </html>
