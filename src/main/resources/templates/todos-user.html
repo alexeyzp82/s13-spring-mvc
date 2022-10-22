@@ -3,8 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>All ToDo lists of User</title>
+    <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
-
+    <div class="head_container">
+        <th:block th:insert="~{header :: header}"></th:block>
+    </div>
+    <h2> All ToDo Lists of <p th:text="${user.firstName} + ' ' + ${user.lastName}" style="text-decoration:none"/></h2>
+    <div class="buttonBlock">
+        <a th:href="@{/users/create}">
+            <button type="submit">Create new ToDo List</button>
+        </a>
+    </div>
+    <div class="container">
+        <table class="homeTable">
+            <tr>
+                <th>No.</th>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Created At</th>
+                <th>Owner</th>
+                <th colspan="2">Operations</th>
+            </tr>
+            <tr class="homeTableTr" th:each="todo,state :${todos}">
+                <td th:text="${state.count}"/>
+                <td th:text="${todo.id}"/>
+                <td>
+                    <a th:text="${todo.title}" style="text-decoration:none"
+                       th:href="@{/allToDoList}"></a>
+                </td>
+                <td th:text="${todo.createdAt}"/>
+                <td th:text="${user.firstName} + ' ' + ${user.lastName}"/>
+                <td>
+                    <a style="text-decoration:none" th:href="@{/users/update/{id}(id=${user.id})}">Edit</a>
+                </td>
+                <td>
+                    <a style="text-decoration:none" th:href="@{/users/delete/{id}(id=${user.id})}">Remove</a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

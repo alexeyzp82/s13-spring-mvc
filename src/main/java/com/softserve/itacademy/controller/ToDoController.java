@@ -1,19 +1,34 @@
 package com.softserve.itacademy.controller;
 
+import com.softserve.itacademy.model.ToDo;
+import com.softserve.itacademy.service.ToDoService;
+import com.softserve.itacademy.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/todos")
 public class ToDoController {
 
-    //add needed fields
+    @Autowired
+    private UserService userService;
 
-//    @GetMapping("/create/users/{owner_id}")
-//    public String create(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
+    @Autowired
+    private ToDoService toDoService;
+
+    @GetMapping("/create/users/{id}")
+    public String create(Model model,  @PathVariable(name = "id") Integer id) {
+        List<ToDo> todoList = toDoService.getByUserId(id);
+        model.addAttribute("user", userService.readById(id));
+        model.addAttribute("todos", todoList);
+        return "todos-user";
+    }
 //
 //    @PostMapping("/create/users/{owner_id}")
 //    public String create(//add needed parameters) {
