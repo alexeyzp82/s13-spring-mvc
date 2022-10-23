@@ -25,23 +25,23 @@ public class ToDoController {
     private ToDoService toDoService;
 
     @GetMapping("/create/users/{id}")
-    public String create(Model model,  @PathVariable(name = "id") Integer id) {
+    public String create(Model model,
+                         @PathVariable(name = "id") Integer id,
+                         @ModelAttribute(name = "toDo") ToDo toDo) {
         List<ToDo> todoList = toDoService.getByUserId(id);
-        model.addAttribute("user", userService.readById(id));
         model.addAttribute("todos", todoList);
         return "create-todo";
     }
 
     @PostMapping("/create/users/{id}")
     public String create(Model model,
-                         @PathVariable(name = "id") Integer id,
                          @Valid @RequestBody ToDo toDo) {
         toDoService.create(toDo);
-        List<ToDo> todos = toDoService.getByUserId(id);
-        todos.add(toDo);
-        User user = userService.readById(id);
-        user.setMyTodos(todos);
-        userService.update(user);
+//        List<ToDo> todos = toDoService.getByUserId(id);
+//        todos.add(toDo);
+//        User user = userService.readById(id);
+//        user.setMyTodos(todos);
+//        userService.update(user);
         model.addAttribute("todo", toDo);
         return "todos-user";
     }
@@ -60,7 +60,7 @@ public class ToDoController {
         model.addAttribute("user", userService.readById(id));
         model.addAttribute("todos", todoList);
         return "todos-user";
-     }
+    }
 
     @PostMapping("/{todo_id}/update/users/{owner_id}")
     public String update(Model model,
