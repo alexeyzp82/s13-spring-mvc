@@ -11,27 +11,27 @@
 </div>
 <h2> Create New ToDo List </h2>
 <div class="container">
-    <form th:action="@{/todo/create}" th:object="${todo}" method="post">
+<!--    <form th:action="@{/todo/create}" th:object="${todo}" method="post">-->
         <table class="newUserTable">
             <tr>
                 <th>Title:</th>
-                <th><input class="userInput" type="text" th:field="*{title}"/></th>
+<!--                <th><input class="userInput" type="text" th:field="*{title}"/></th>-->
             </tr>
             <tr>
                 <th style="width:100px">Created At:</th>
-                <th><input class="userInput" type="text" th:field="*{createdAt}"/></th>
+<!--                <th><input class="userInput" type="text" th:field="*{createdAt}"/></th>-->
             </tr>
             <tr>
                 <th>User: </th>
-                <th><input class="userInput" type="text" th:field="*{user.firstname} + *{user.lastname}"/></th>
+<!--                <th><input class="userInput" type="text" th:field="*{user.firstname} + *{user.lastname}"/></th>-->
             </tr>
             <tr>
                 <th>Task: </th>
-                <th><input class="userInput" type="text" th:field="*{task}"/></th>
+<!--                <th><input class="userInput" type="text" th:field="*{task}"/></th>-->
             </tr>
             <tr>
                 <th>Collaborator:</th>
-                <th><input class="userInput" type="text" th:field="*{collaborator}"/></th>
+<!--                <th><input class="userInput" type="text" th:field="*{collaborator}"/></th>-->
             </tr>
         </table>
         <div style="text-align:right;">

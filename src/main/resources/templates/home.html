@@ -29,7 +29,7 @@
             <td th:text="${user.id}"/>
             <td>
                 <a th:text="${user.firstName} + ' ' + ${user.lastName}" style="text-decoration:none"
-                   th:href="@{/todos/create/users/{id}(id=${user.id})}"></a>
+                   th:href="@{/todos/all/users/{id}(id=${user.id})}"></a>
             </td>
             <td th:text="${user.email}"/>
             <td>

@@ -27,7 +27,7 @@ public class TaskController {
     @GetMapping({"/create/{todo_id}"})
     public String show(Model model,
                        @PathVariable(name = "todo_id") Long id,
-                       @ModelAttribute(name = "task") Task task){
+                       @ModelAttribute(name = "task") Task task) {
         model.addAttribute("priority", Priority.values());
         model.addAttribute("toDo", toDoService.readById(id));
         return "create-task";
@@ -44,7 +44,7 @@ public class TaskController {
 
     @PostMapping("/create/todos/{todo_id}")
     public String create(Model model,
-                         @PathVariable(name="todo_id") Long id,
+                         @PathVariable(name = "todo_id") Long id,
                          @ModelAttribute(name = "task") Task task) {
         ToDo toDo = toDoService.readById(id);
         task.setTodo(toDo);

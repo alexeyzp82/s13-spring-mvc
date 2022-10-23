@@ -29,7 +29,7 @@ public class ToDoController {
         List<ToDo> todoList = toDoService.getByUserId(id);
         model.addAttribute("user", userService.readById(id));
         model.addAttribute("todos", todoList);
-        return "todos-user";
+        return "create-todo";
     }
 
     @PostMapping("/create/users/{id}")
@@ -96,9 +96,10 @@ public class ToDoController {
     }
 
     @GetMapping("/all/users/{user_id}")
-    public String getAll(Model model, @PathVariable(name = "id") Integer id) {
-        List<ToDo> allUserToDos = toDoService.getByUserId(id);
-        model.addAttribute("todos", allUserToDos);
+    public String getAll(Model model, @PathVariable(name = "user_id") Integer id) {
+        List<ToDo> todoList = toDoService.getByUserId(id);
+        model.addAttribute("user", userService.readById(id));
+        model.addAttribute("todos", todoList);
         return "todos-user";
     }
 

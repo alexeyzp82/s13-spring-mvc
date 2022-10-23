@@ -12,7 +12,7 @@
     <h2 style="display:inline-block"> All ToDo Lists of</h2>
     <h2 style="display:inline-block" th:text="${user.firstName} + ' ' + ${user.lastName}"></h2>
     <div class="buttonBlock">
-        <a th:href="@{/users/create}">
+        <a th:href="@{/todos/create/users/{id}(id=${user.id})}">
             <button type="submit">Create new ToDo List</button>
         </a>
     </div>
