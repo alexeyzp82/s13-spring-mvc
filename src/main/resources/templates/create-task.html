@@ -6,41 +6,41 @@
     <link th:href="@{/static/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
-    <div class="head_container">
-        <th:block th:insert="~{header :: header}"></th:block>
-    </div>
-    <h2>Create New Task</h2>
-    <div class="container">
-        <form th:action="@{/tasks/create}" th:object="${task}" method="post" >
-            <table class="newUserTable">
-                <tr>
-                    <th>Name: </th>
-                    <th><input class="userInput" type="text" th:field="*{name}"/></th>
-                </tr>
-                <tr>
-                    <th style="width:100px">Priority: </th>
-                    <th>
-                        <select class="userInput" th:field="*{priority}">
-                            <option th:each="env : ${priority}"
-                                    th:text="${env}"
-                                    th:value="${env}">
-                            </option>
-                        </select>
-                    </th>
-                </tr>
-            </table>
-            <div style="text-align:right;">
-                <input class="defButton register" type="submit" value="Create"/>
-                <input class="defButton clear" type="button" value="Clear"
-                       onclick="document.querySelectorAll('input[type=text], textarea').forEach(el=>el.value = '');"/>
-            </div>
-            <div style="text-align:right;">
-                <a style="text-decoration:none" th:href="@{/}">Go to Task List</a>
-            </div>
-        </form>
-        <div
-                th:if="${err}" th:utext="${err}" style="color:red;font-style:italic;">
+<div class="head_container">
+    <th:block th:insert="~{header :: header}"></th:block>
+</div>
+<h2>Create New Task</h2>
+<div class="container">
+    <form th:action="@{/tasks/create/todos/{id}(id=${toDo.id})}" th:object="${task}" method="post">
+        <table class="newUserTable">
+            <tr>
+                <th>Name:</th>
+                <th><input class="userInput" type="text" th:field="*{name}"/></th>
+            </tr>
+            <tr>
+                <th style="width:100px">Priority:</th>
+                <th>
+                    <select class="userInput" th:field="*{priority}">
+                        <option th:each="env : ${priority}"
+                                th:text="${env}"
+                                th:value="${env}">
+                        </option>
+                    </select>
+                </th>
+            </tr>
+        </table>
+        <div style="text-align:right;">
+            <input class="defButton register" type="submit" value="Create"/>
+            <input class="defButton clear" type="button" value="Clear"
+                   onclick="document.querySelectorAll('input[type=text], textarea').forEach(el=>el.value = '');"/>
         </div>
+        <div style="text-align:right;">
+            <a style="text-decoration:none" th:href="@{/tasks/create/todos/{id}(id=${toDo.id})}">Go to Task List</a>
+        </div>
+    </form>
+    <div
+            th:if="${err}" th:utext="${err}" style="color:red;font-style:italic;">
     </div>
+</div>
 </body>
 </html>

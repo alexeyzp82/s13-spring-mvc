@@ -24,15 +24,12 @@ public class TaskController {
     @Autowired
     private StateService stateService;
 
-    @GetMapping({"/create"})
-    public String show(Model model, @ModelAttribute(name = "task") Task task) {
+    @GetMapping({"/create/{todo_id}"})
+    public String show(Model model,
+                       @PathVariable(name = "todo_id") Long id,
+                       @ModelAttribute(name = "task") Task task){
         model.addAttribute("priority", Priority.values());
-        return "create-task";
-    }
-
-    @PostMapping({"/create"})
-    public String create(Model model, @ModelAttribute(name = "task") Task task) {
-        model.addAttribute("priority", Priority.values());
+        model.addAttribute("toDo", toDoService.readById(id));
         return "create-task";
     }
 
@@ -45,13 +42,20 @@ public class TaskController {
         return "todo-tasks";
     }
 
-    //
-//    @PostMapping("/create/todos/{todo_id}")
-//    public String create(//add needed parameters) {
-//        //ToDo
-//        return " ";
-//    }
-//
+    @PostMapping("/create/todos/{todo_id}")
+    public String create(Model model,
+                         @PathVariable(name="todo_id") Long id,
+                         @ModelAttribute(name = "task") Task task) {
+        ToDo toDo = toDoService.readById(id);
+        task.setTodo(toDo);
+        task.setState(stateService.getByName("New"));
+        taskService.create(task);
+        List<Task> tasks = toDo.getTasks();
+        model.addAttribute("tasks", tasks);
+        model.addAttribute("toDo", toDo);
+        return "todo-tasks";
+    }
+
     @GetMapping("/{task_id}/update/todos/{todo_id}")
     public String update(Model model,
                          @PathVariable(name = "task_id") Long taskId,
@@ -68,11 +72,9 @@ public class TaskController {
 
     @PostMapping("/{task_id}/update/todos/{todo_id}")
     public String update(Model model,
-                         @ModelAttribute(name = "user") Task task,
-                         @PathVariable(name = "todo_id") Long todoId,
-                         @PathVariable(name = "task_id") Long taskId) {
+                         @ModelAttribute(name = "task") Task task,
+                         @PathVariable(name = "todo_id") Long todoId) {
         ToDo toDo = toDoService.readById(todoId);
-        task.setId(taskId);
         task.setTodo(toDo);
         State state = stateService.getAll().stream()
                 .filter(s -> s.getName().equals(task.getState().getName()))

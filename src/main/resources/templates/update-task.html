@@ -16,7 +16,8 @@
         <table class="newUserTable">
             <tr>
                 <th>ID:</th>
-                <th><input class="userInput" type="text" th:placeholder="${task.id}" readonly></th>
+                <th><input class="userInput" type="text" th:placeholder="${task.id}"
+                           th:field="*{id}" readonly></th>
             </tr>
             <tr>
                 <th>Name:</th>
